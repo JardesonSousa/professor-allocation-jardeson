@@ -35,24 +35,30 @@ return allocation;
 	//CRUD: CREATE
 	public Allocation create (Allocation allocation)
 	{
-		Allocation allocationNew = allocationRepository.save(allocation);
-	return allocationNew;
+		return saveInternal(allocation);
 	}
 	
 	//CRUD : UPDATE
 	public Allocation update(Allocation allocation)
 	{
 		Long id = allocation.getId();
-		if (id != null && allocationRepository.existsById(id))
-		{
-			Allocation allocationNew = allocationRepository.save(allocation);
-			return allocationNew;
+		if (id != null && allocationRepository.existsById(id)) {
+		return saveInternal(allocation);
+			
 		}
 		else
 		{
 			return null;
 		}
 	}
+	
+	private Allocation saveInternal(Allocation allocation)
+	{
+		Allocation allocationNew = allocationRepository.save(allocation);
+		return allocationNew;
+	}
+	
+	//CRUD DELETE By ID
 	public void deleteById(Long id) {
 		if (allocationRepository.existsById(id)) {
 			allocationRepository.deleteById(id);
